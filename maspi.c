@@ -4,22 +4,13 @@
 #include <linux/kernel.h>
 #include <linux/spi/spi.h>
 // -----------------------------------------------------------------------------------
-static struct spi_board_info pseudo_spi_devices[] =
+static struct spi_board_info pseudo_spi_device =
 {
-  {
-    .modalias     = "spidev",
-    .max_speed_hz = 500000,
-    .bus_num      = 0,
-    .chip_select  = 2,
-    .mode         = SPI_MODE_0 | SPI_NO_CS
-  },
-  {
-    .modalias     = "spidev",
-    .max_speed_hz = 500000,
-    .bus_num      = 0,
-    .chip_select  = 3,
-    .mode         = SPI_MODE_0 | SPI_NO_CS
-  }
+  .modalias     = "spidev",
+  .max_speed_hz = 500000,
+  .bus_num      = 0,
+  .chip_select  = 2,
+  .mode         = SPI_MODE_0 | SPI_NO_CS
 };
 // -----------------------------------------------------------------------------------
 static struct spi_device *maspi_device = NULL;
@@ -34,7 +25,7 @@ static int __init init_maspi(void)
     printk(KERN_ALERT "could not find master spi driver");
     return -1;
   }
-  maspi_device = spi_new_device(master, pseudo_spi_devices);
+  maspi_device = spi_new_device(master, &pseudo_spi_devices);
   if (!maspi_device)
   {
     printk(KERN_ALERT "could not add extra spi device [CS2]");
