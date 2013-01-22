@@ -25,7 +25,7 @@ static int __init init_maspi(void)
     printk(KERN_ALERT "could not find master spi driver");
     return -1;
   }
-  maspi_device = spi_new_device(master, &pseudo_spi_devices);
+  maspi_device = spi_new_device(master, &pseudo_spi_device);
   if (!maspi_device)
   {
     printk(KERN_ALERT "could not add extra spi device [CS2]");
